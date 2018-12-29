@@ -1,6 +1,9 @@
 package controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +22,18 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/addproducts",method=RequestMethod.POST)
-	public String addProducts(@ModelAttribute("product1")Product p)
+	public String addProducts(@Valid @ModelAttribute("product1")Product p, BindingResult result)
 	{
-		IProductDAO pd = new ProductDAOImpl();
-		boolean b = pd.insertProduct(p);
+		boolean b = false;
+		if(result.hasErrors())
+		{
+			return "addproducts";
+		}
+		else
+		{
+			IProductDAO pd = new ProductDAOImpl();
+			b = pd.insertProduct(p);
+		}
 		if (b)
 		{
 			return "success";
