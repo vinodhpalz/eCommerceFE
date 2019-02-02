@@ -2,18 +2,12 @@ package model.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 
 @Entity
@@ -22,20 +16,25 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int pId;
-	@Column(name="ProductName", length=10)
-	@Pattern(regexp="[^0-9]*")
-	private String pName;
+	
+	@Column(name="ProductName")
+	private String pName = null;
+	
 	@Column(name="ProductCost")
-	@Size(min=2, max=4, message="The value should be between 2 digits to 4 digits")
 	private String pCost;
 	
-	@Max(99)
-	@Min(1)
 	private int pQty;
-	@Future
+	@Past
 	private Date pDOM;
-	
 
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public int getpQty() {
 		return pQty;
 	}
@@ -52,12 +51,14 @@ public class Product {
 		
 	}
 	
-	public Product(String pName, String pCost, int pQty, Date pDOM) {
+	
+	public Product(String pName, String pCost, int pQty, Date pDOM, String email) {
 		super();
 		this.pName = pName;
 		this.pCost = pCost;
 		this.pQty = pQty;
 		this.pDOM = pDOM;
+		this.email = email;
 	}
 	public int getpId() {
 		return pId;

@@ -8,22 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form:errors path="product1.*"/>
-<form action="${pageContext.request.contextPath}/addproducts" method="POST">
+<form:errors path="category1.*"/>
+<form action="${pageContext.request.contextPath}/addcategory" method="POST">
 
-Product Name: <input type="text" name="pName"/>
+Category Name: <input type="text" name="cName"/>
 
-Product Cost: <input type="text" name="pCost"/>
-
-Product Qty: <input type="text" name="pQty"/>
-
-Product DOM: <input type="text" name="pDOM"/>
-
-Email Id: <input type="email" name="email"/>
+Category Type: <input type="text" name="cType"/>
 
 <input type="submit" value="Submit"/>
 
 </form>
-
 </body>
 </html>

@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import model.dao.ICategoryDAO;
 import model.dao.IProductDAO;
+import model.daoimpl.CategoryDAOImpl;
 import model.daoimpl.ProductDAOImpl;
+import model.entity.Category;
 import model.entity.Product;
 
 @Controller
@@ -42,6 +45,35 @@ public class ProductController {
 		{
 			return "addproducts";
 		}
+	}
+	
+	@RequestMapping(value="/addcategory",method=RequestMethod.POST)
+	public String addCategory(@Valid @ModelAttribute("category1")Category c, BindingResult result)
+	{
+		boolean b = false;
+		if(result.hasErrors())
+		{
+			return "addcategory";
+		}
+		else
+		{
+			ICategoryDAO pd = new CategoryDAOImpl();
+			b = pd.insertCategory(c);
+		}
+		if (b)
+		{
+			return "success";
+		}
+		else
+		{
+			return "addcategory";
+		}
+	}
+	
+	@RequestMapping(value="/addcatpage",method=RequestMethod.GET)
+	public String addCategoryPage()
+	{
+		return "addcategory";
 	}
 	
 }
